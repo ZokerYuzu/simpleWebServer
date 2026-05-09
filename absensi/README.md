@@ -26,18 +26,40 @@ Proyek ini dibangun menggunakan:
 
 ---
 
-## 🚀 Panduan Instalasi & Penggunaan
+## 🚀 Cara Menjalankan Proyek
 
-Proyek ini telah dilengkapi dengan sebuah file SOP (*Standard Operating Procedure*) yang sangat detail bernama **`CARA_MENJALANKAN.md`**.
+Untuk menjalankan proyek ini secara rutin (setelah instalasi awal selesai), Anda perlu menghidupkan beberapa *service* di terminal Linux (WSL):
 
-Di dalam file tersebut, Anda dapat menemukan:
-1. Cara mengunduh dan memasang (*install*) Nginx, PHP-FPM, MariaDB, dan phpMyAdmin di lingkungan WSL yang baru.
-2. Cara menyalakan ulang service/server setiap kali komputer di-restart.
-3. Cara mengakses website secara lokal.
-4. Cara membagikan *(hosting sementara)* web ke internet agar bisa diakses dosen menggunakan **Ngrok**.
-5. Cara mereset ulang seluruh data database *(Clear Data)*.
+### 1. Jalankan Service Server
+Buka terminal Debian/Ubuntu (WSL) Anda dan jalankan perintah berikut untuk menghidupkan web server (Nginx), database (MariaDB), dan pemroses PHP (PHP-FPM):
+```bash
+sudo service nginx start
+sudo service mariadb start
+sudo service php8.2-fpm start
+```
+*(Catatan: Sesuaikan `8.2` dengan versi PHP di sistem Anda).*
 
-Silakan buka file **`CARA_MENJALANKAN.md`** untuk membaca instruksi selengkapnya!
+### 2. Cek IP Address Lokal
+Ketik perintah ini untuk mengetahui alamat IP Linux Anda:
+```bash
+hostname -I
+```
+*Contoh output: `172.25.10.5`*
+
+### 3. Akses Website
+Buka browser di Windows Anda, lalu ketikkan alamat IP yang didapat pada langkah ke-2:
+```text
+http://172.25.10.5
+```
+*(Tambahkan `/phpmyadmin` di akhir URL jika ingin mengakses database manager).*
+
+### ⚠️ Penting: Sinkronisasi Kode
+Karena Anda mengedit file di folder Windows, sedangkan Nginx membaca file dari folder `/var/www/absensi` di Linux, maka setiap ada perubahan kode PHP/HTML, Anda **wajib** menyalinnya ulang dengan perintah ini di WSL:
+```bash
+sudo cp /mnt/c/xampp/htdocs/webServer/absensi/*.php /var/www/absensi/
+```
+
+> **Panduan Lengkap:** Untuk instalasi dari awal (install Nginx, MariaDB, dll), setup database pertama kali, atau cara membagikan web ke internet untuk presentasi menggunakan **Ngrok**, silakan baca selengkapnya pada file **[`CARA_MENJALANKAN.md`](CARA_MENJALANKAN.md)**.
 
 ---
 
